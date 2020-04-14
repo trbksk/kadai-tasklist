@@ -8,11 +8,16 @@
             {!! Form::model($task, ['route' => ['tasks.update', $task->id], 'method' => 'put']) !!}
         
                 <div class="form-group">
-                    {!! Form::label('content', 'To do:') !!}
+                    {!! Form::label('status', 'Status:') !!}
+                    {!! Form::text('status', null, ['class' => 'form-control']) !!}
+                </div>
+                
+                <div class="form-group">
+                    {!! Form::label('content', 'Content:') !!}
                     {!! Form::text('content', null, ['class' => 'form-control']) !!}
                 </div>
         
-                {!! Form::submit('更新', ['class' => 'btn btn-warning']) !!}
+                {!! Form::submit('更新する', ['class' => 'btn btn-warning']) !!}
         
             {!! Form::close() !!}
         </div>
