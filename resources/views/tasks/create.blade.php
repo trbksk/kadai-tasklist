@@ -9,7 +9,7 @@
     
             <div class="form-group">
                 {!! Form::label('status', 'ステータス:') !!}
-                {!! Form::text('status', 'To do', ['class' => 'form-control']) !!}
+                {!! Form::text('status', null, ['class' => 'form-control', 'placeholder' => 'status']) !!}
             </div>
             
             <div class="form-group">
