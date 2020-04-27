@@ -9,7 +9,15 @@ use App\Task;
 use App\User;
 
 class TasksController extends Controller
-{
+{   
+    
+    // authミドルウェアをコントローラーの全アクションに対して適用？
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +26,6 @@ class TasksController extends Controller
      
     public function index()
     {
-        // $tasks = Task::all();
-        
        $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
@@ -30,10 +36,6 @@ class TasksController extends Controller
                 'tasks' => $tasks,
             ];
         }
-        
-        // return view ('tasks.index', [
-        //     'tasks' => $tasks,
-        // ]);
         
         return view('tasks.index', $data);
     }
@@ -83,10 +85,15 @@ class TasksController extends Controller
     public function show($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.show', [
-            'task' => $task,
-        ]);
+        
+        if ( $task->user_id === \Auth::user()->id) {
+            
+            return view('tasks.show', [
+                'task' => $task,
+            ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -98,10 +105,15 @@ class TasksController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
+        
+        if ( $task->user_id === \Auth::user()->id) {
+            
+            return view('tasks.show', [
+                'task' => $task,
+            ]);
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -141,5 +153,6 @@ class TasksController extends Controller
         }
 
         return redirect('/');
+        
     }
 }
